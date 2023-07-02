@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useRef } from 'react'
 import Papa from 'papaparse';
 
 // Months
@@ -19,19 +19,33 @@ const monthlyPasses = {
     "zoneThree": 189.45,
     "concession": 59.95
 }
+const csvHeaders = "DateTime,Transaction,Product,LineItem,Amount,BalanceDetails,JourneyId,LocationDisplay,TransactonTime,OrderDate,Payment,OrderNumber,AuthCode,Total"
+
 let monthsTravelled = 0
 let totalJourneyCost = 0
 
-// User will select a zone
-let userZoneCost = 104.90
-
-// Message to display
-let tempString = ''
-
-function CSVParser() {
-  let [tranLen, setTranLen] = useState([0])
+function CSVParser({ 
+  selectedZone,
+  setSelectedZone,
+  paymentMethod,
+  setPaymentMethod,
+  handleFormReset
+}) {
+  const [message, setMessage] = useState(null)
+  const [fileError, setFileError] = useState("") 
+  const fileInputRef = useRef(null)
+  // User selected zone
+  const userZoneCost = monthlyPasses[selectedZone]
 
   const handleFileChange = (event) => {
+    // Check if a zone has been selected
+    if (!selectedZone) {
+      setFileError("Please select a fare zone before uploading a file")
+      setTimeout(() => {
+        setFileError("")
+      }, 3000)
+      return
+    }
 
     // Assign file to const
     const file = event.target.files[0];
@@ -39,14 +53,23 @@ function CSVParser() {
     // Parse the CSV file
     Papa.parse(file, {
       complete: (results) => {
-        // Access parsed data from 'results' variable
-        setTranLen(results.data.length)
-
+        // Error checking
+        if (results.data[0].join(',') !== csvHeaders)
+        {
+          setFileError("Incorrect file, try uploading again")
+          handleFormReset()
+          // Rest file input value
+          fileInputRef.current.value = null
+          setTimeout(() => {
+            setFileError("")
+          }, 3500)
+          return
+        }
+ 
         // Check what month the journey was in, add to month cost and journey.count
-        results.data.map((transaction) => {
+        results.data.forEach((transaction) => { // Use forEach instead of map
           arrayMonths.forEach(month => {
-            if (month.monthName === transaction[0].slice(0,3).toLowerCase())
-            {
+            if (month.monthName === transaction[0].slice(0,3).toLowerCase()) {
               let tempValue = transaction[4].replace(/[^0-9.-]/g, "")
               month.totalCost += parseFloat(tempValue)
               month.journeyCount += 1
@@ -54,7 +77,7 @@ function CSVParser() {
           });
         })
 
-        // Loop through each month, check if pass is better value
+        // Loop thru months, update travelled, monthsTravelled, totalJourneyCost
         arrayMonths.forEach(month => {
           // Check if month has been travelled and update monthsTravelled
           month.travelled = Boolean(month.journeyCount)
@@ -63,7 +86,7 @@ function CSVParser() {
           totalJourneyCost += Math.abs(month.totalCost)
         })
 
-        // monthlyPass Costs, annual/monthly savings
+        // monthlyPass costs, annual/monthly savings
         let monthlyPassCost = userZoneCost * monthsTravelled
         let annualSavings = (totalJourneyCost - monthlyPassCost * userZoneCost).toFixed(2)
         let monthlylSavings = (Math.abs((totalJourneyCost / monthsTravelled) - userZoneCost)).toFixed(2) 
@@ -71,24 +94,23 @@ function CSVParser() {
         // Check if saving money
         if (monthlyPassCost < totalJourneyCost)
         {
-          setTranLen(`Get a pass!`)
-
+          setMessage(`Get a pass! You're losing out on $${monthlylSavings} a month!`)
           return
         }
-        setTranLen(`Stick to what you're doing, you need to spend $${monthlylSavings} more per month`)
+        setMessage(`Stick to what you're doing, you need to spend $${monthlylSavings} more per month`)
 
       }
     })
-
   }
-
-
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
-      <p>{tranLen}</p>
-      <p>{tempString}</p>
+      {selectedZone && paymentMethod && (
+        <input type="file" ref={fileInputRef} onChange={handleFileChange} />
+      )}
+      
+      {fileError && <p>{fileError}</p>}
+      <p>{message}</p>
     </div>
   );
 }
