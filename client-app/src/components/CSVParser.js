@@ -23,6 +23,7 @@ const csvHeaders = "DateTime,Transaction,Product,LineItem,Amount,BalanceDetails,
 
 let monthsTravelled = 0
 let totalJourneyCost = 0
+let tempFloatTotal = 0
 
 function CSVParser({ 
   selectedZone,
@@ -37,6 +38,12 @@ function CSVParser({
   // User selected zone
   const userZoneCost = monthlyPasses[selectedZone]
 
+  const handleResetAll = (event) => {
+    handleFormReset()
+    setMessage("")
+
+  }
+
   const handleFileChange = (event) => {
     // Check if a zone has been selected
     if (!selectedZone) {
@@ -46,13 +53,14 @@ function CSVParser({
       }, 3000)
       return
     }
-
+    
     // Assign file to const
     const file = event.target.files[0];
   
     // Parse the CSV file
     Papa.parse(file, {
       complete: (results) => {
+        
         // Error checking
         if (results.data[0].join(',') !== csvHeaders)
         {
@@ -65,31 +73,58 @@ function CSVParser({
           }, 3500)
           return
         }
- 
+        
         // Check what month the journey was in, add to month cost and journey.count
         results.data.forEach((transaction) => { // Use forEach instead of map
           arrayMonths.forEach(month => {
+            // Check if month matches month in transaction
             if (month.monthName === transaction[0].slice(0,3).toLowerCase()) {
               let tempValue = transaction[4].replace(/[^0-9.-]/g, "")
-              month.totalCost += parseFloat(tempValue)
+              month.totalCost += Math.abs(parseFloat(tempValue))
               month.journeyCount += 1
-            }
-          });
-        })
+              
+              // Update whether month has been travelled in
+              if (!month.travelled) {
+                monthsTravelled += 1
+              }
 
-        // Loop thru months, update travelled, monthsTravelled, totalJourneyCost
+              month.travelled = Boolean(month.journeyCount)
+
+              totalJourneyCost += Math.abs(parseFloat(tempValue))
+              tempFloatTotal += parseFloat(tempValue)
+
+
+              //@@@@@ Currently debugging difference between MathAbs
+              //@@@@@ and parseFloat() values
+
+              console.log("tempValue", tempValue)
+              console.log("totalFloat", tempFloatTotal)
+              console.log("totalMathAbs", totalJourneyCost)
+              console.log("@@@@")
+
+            }
+          })
+          
+        })
+        //@@@@
+        // Loop months, update travelled, monthsTravelled, totalJourneyCost
         arrayMonths.forEach(month => {
           // Check if month has been travelled and update monthsTravelled
-          month.travelled = Boolean(month.journeyCount)
-          monthsTravelled += month.travelled ? 1 : 0
+          //@@@@
+          // month.travelled = Boolean(month.journeyCount)
+          // monthsTravelled += month.travelled ? 1 : 0
+          //@@@@
+          console.log(month.monthName, month.totalCost)
+
           // Add month cost to total
-          totalJourneyCost += Math.abs(month.totalCost)
+          // totalJourneyCost += Math.abs(month.totalCost)
         })
+        // @@
+
 
         // monthlyPass costs, annual/monthly savings
         let monthlyPassCost = userZoneCost * monthsTravelled
-        let annualSavings = (totalJourneyCost - monthlyPassCost * userZoneCost).toFixed(2)
-        let monthlylSavings = (Math.abs((totalJourneyCost / monthsTravelled) - userZoneCost)).toFixed(2) 
+        let monthlylSavings = ((totalJourneyCost / monthsTravelled) - userZoneCost).toFixed(2) 
 
         // Check if saving money
         if (monthlyPassCost < totalJourneyCost)
@@ -111,7 +146,9 @@ function CSVParser({
       
       {fileError && <p>{fileError}</p>}
       <p>{message}</p>
+      <button onClick={handleResetAll}>Compute again</button>
     </div>
+
   );
 }
 
