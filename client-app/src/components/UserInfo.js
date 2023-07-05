@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 function UserInfo({ 
     selectedZone,
@@ -6,6 +6,8 @@ function UserInfo({
     paymentMethod,
     setPaymentMethod,
     handleFormReset,
+    isConcession,
+    setIsConcession
 }) {
     const zoneSelectRef = useRef(null);
     const paymentMethodRef = useRef(null);
@@ -16,7 +18,11 @@ function UserInfo({
 
     const handlePaymentChange = (event) => {
         setPaymentMethod(event.target.value);
-    };
+    }
+
+    const handleConcessionChange = (event) => {
+        setIsConcession(event.target.checked ? "concession" : "adult")
+    }
 
     return (
         <div>
@@ -29,10 +35,9 @@ function UserInfo({
                 ref={zoneSelectRef}
             >
                 <option value="">-- Select Zone --</option>
-                <option value="zoneOne">1</option>
-                <option value="zoneTwo">2</option>
-                <option value="zoneThree">3</option>
-                <option value="concession">Concession</option>
+                <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option>
             </select>
 
             {/* Method payment? (Cash/Contactless/Compass card) */}
@@ -44,10 +49,23 @@ function UserInfo({
                 ref={paymentMethodRef}
             >
                 <option value="">-- Select Payment Type --</option>
-                <option value="cash">Cash</option>
-                <option value="contactless">Contactless</option>
-                <option value="compass">Compass Card</option>
+                <option value="cashFares">Cash</option>
+                <option value="contactlessFares">Contactless</option>
+                <option value="storedValueFares">Compass Card</option>
             </select>
+            
+            <label htmlFor='concessionCheckbox'>
+                Concession*:
+                    <input
+                        id="concessionCheckbox"
+                        type="checkbox"
+                        checked={isConcession === "concession"}
+                        onChange={handleConcessionChange}
+                    />
+            </label>
+            <p>
+                *Concession eligible: HandyCard holders, seniors 65 and older, youth 13 to 18 years*, children 5 to 12 years 
+            </p>
 
             <button onClick={handleFormReset}>Reset</button>
         </div>

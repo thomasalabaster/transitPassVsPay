@@ -7,10 +7,12 @@ const App = () => {
   const [paymentMethod, setPaymentMethod] = useState('');
   const zoneSelectRef = useRef(null);
   const paymentMethodRef = useRef(null);
+  const [isConcession, setIsConcession] = useState("adult")
 
   const handleFormReset = () => {
     setSelectedZone('');
     setPaymentMethod('');
+    setIsConcession("adult")
     if (zoneSelectRef.current) {
       zoneSelectRef.current.value = '';
     }
@@ -29,6 +31,8 @@ const App = () => {
         handleFormReset={handleFormReset}
         zoneSelectRef={zoneSelectRef}
         paymentMethodRef={paymentMethodRef}
+        isConcession={isConcession}
+        setIsConcession={setIsConcession}
       />
       <CSVParser
         selectedZone={selectedZone}
@@ -36,6 +40,7 @@ const App = () => {
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
         handleFormReset={handleFormReset}
+        isConcession={isConcession}
       />
     </div>
   );
