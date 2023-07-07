@@ -188,7 +188,7 @@ function CSVParser({
 
   return (
     <div>
-      {infoGather && selectedZone && paymentMethod && (
+      {selectedZone && paymentMethod && (
         <input type="file" ref={fileInputRef} onChange={handleFileChange} />
       )}
       

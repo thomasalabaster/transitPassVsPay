@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 function UserInfo({ 
     selectedZone,
@@ -69,7 +69,7 @@ function UserInfo({
 
             <button onClick={handleFormReset}>Reset</button>
         </div>
-    );
+    )
 }
 
 export default UserInfo;
