@@ -1,47 +1,47 @@
-import React, { useState, useRef } from 'react';
-import CSVParser from './components/CSVParser';
-import UserInfo from './components/UserInfo';
+import React, { useState, useEffect } from 'react';
+import FileUploader from './components/FileUploader'
+import GetUserInfo from './components/GetUserInfo'
+import DataAnalyser from './components/DataAnalyser'
 
 const App = () => {
-  const [selectedZone, setSelectedZone] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const zoneSelectRef = useRef(null);
-  const paymentMethodRef = useRef(null);
-  const [isConcession, setIsConcession] = useState("adult")
+  const user = {
+    paymentMethod: "",
+    selectedZone: "",
+    isConcession: "adult"
+}
+  const [userData, setUserData] = useState(user)
+  const [fileData, setFileData] = useState(null)
+  const [analysedData, setAnalysedData] = useState(null)
 
-  const handleFormReset = () => {
-    setSelectedZone('');
-    setPaymentMethod('');
-    setIsConcession("adult")
-    if (zoneSelectRef.current) {
-      zoneSelectRef.current.value = '';
-    }
-    if (paymentMethodRef.current) {
-      paymentMethodRef.current.value = '';
-    }
-  };
+  const handleFileUpload = (data) => {
+    setFileData(data)
+  }
+  // @@@@@ To do @@@@@ 
+  if (analysedData) {
+    return (
+      <div>
+        <p>{analysedData.analysisObj.monthlySavings}</p>
+        <p>hi</p>
+        <button>
+          Reset
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className='App'>
-      <UserInfo
-        selectedZone={selectedZone}
-        setSelectedZone={setSelectedZone}
-        paymentMethod={paymentMethod}
-        setPaymentMethod={setPaymentMethod}
-        handleFormReset={handleFormReset}
-        zoneSelectRef={zoneSelectRef}
-        paymentMethodRef={paymentMethodRef}
-        isConcession={isConcession}
-        setIsConcession={setIsConcession}
-      />
-      <CSVParser
-        selectedZone={selectedZone}
-        setSelectedZone={setSelectedZone}
-        paymentMethod={paymentMethod}
-        setPaymentMethod={setPaymentMethod}
-        handleFormReset={handleFormReset}
-        isConcession={isConcession}
-      />
+      <GetUserInfo userData={userData} setUserData={setUserData} />
+      {!fileData ? ( 
+        <FileUploader onFileUpload={handleFileUpload} /> )
+         : (
+          <DataAnalyser 
+            fileData={fileData}
+            userData={userData}
+            setAnalysedData={setAnalysedData}
+            analysedData={analysedData}
+          />
+         )}
     </div>
   );
 };
