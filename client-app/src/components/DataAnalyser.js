@@ -118,12 +118,14 @@ function DataAnalyser({ fileData, userData, setAnalysedData }) {
 
         const analysisObj = {
           monthlySavings,
-          requiredJourneys
+          requiredJourneys,
+          totalJourneyCount,
+          totalTransferCount,
+          monthlyPassCost,
+          totalJourneyCost,
+          monthsTravelled
         }
-
         setAnalysedData({ analysisObj, arrayMonths })
-        console.log(monthlySavings)
-
       }
 
       performDataAnalysis()
