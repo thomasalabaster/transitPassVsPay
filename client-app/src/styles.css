@@ -1,0 +1,98 @@
+.dataForm {
+    background-color:cornflowerblue;
+}
+body {
+    background-color: #efeff0;
+    font-family: "FF Meta® W01",Arial,Verdana,sans-serif
+
+}
+#root {
+    background-color: #e6f4f8;
+    border-color: violet;
+    /* border-style: solid; */
+    border-width: 2px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    margin: 2%;
+    padding: 5%;
+
+}
+
+h1 {
+    color: #009DDC;
+    display: flex;
+    justify-content: center;
+}
+
+
+.file-upload {
+    display: flex;
+    justify-content: center;
+
+  }
+  
+  .custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #009DDC;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #fileUploaderInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+
+#getAllUserInfo {
+    display: flex;
+    justify-content: center;
+    border-color: red;
+    /* border-style: solid; */
+    border-width: 1px;
+    padding: 1%;
+    margin-bottom: 10px;
+}
+
+select {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#methodPaymentDiv {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#zoneSelectorDiv {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#concessionDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-right: 5px;
+}
+
+#concessionDiv label {
+  display: flex;
+  align-items: center;
+}
+
+
+.userInfo {
+    padding: 5px;
+}

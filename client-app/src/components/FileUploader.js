@@ -25,8 +25,11 @@ function FileUploader({ onFileUpload }) {
 }
 
     return (
-        <div>
-            <input type="file" onChange={handleFileChange} />
+        <div className='fileUploader'>
+            <div className="file-upload">
+            <input type="file" id="fileUploaderInput" onChange={handleFileChange} style={{ display: 'none' }} />
+            <label htmlFor="fileUploaderInput" className="custom-button">Upload File</label>
+        </div>
             <MessageDisplay message={message} />
         </div>
     )

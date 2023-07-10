@@ -29,7 +29,7 @@ function AnalysisDisplay({ analysedData, userData }) {
         <div>
             <MessageDisplay title={title} />
             <MessageDisplay message={toBuyOrNotToBuy} />
-            <MessageDisplay title={"Fun Stats"} />
+            <MessageDisplay title={"Fun stats"} />
             <MessageDisplay message={message} />
         </div>
     )
