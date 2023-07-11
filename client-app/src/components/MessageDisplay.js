@@ -1,4 +1,5 @@
 function MessageDisplay({ message, title }) {
+
     return (
         <div>
             <h3> {title} </h3>

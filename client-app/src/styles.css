@@ -18,13 +18,18 @@ body {
     border-radius: 50px;
     margin: 2%;
     padding: 5%;
-
 }
+
 
 h1 {
     color: #009DDC;
     display: flex;
     justify-content: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -53,7 +58,6 @@ h1 {
     cursor: pointer;
   }
 
-
 #getAllUserInfo {
     display: flex;
     justify-content: center;
@@ -62,6 +66,10 @@ h1 {
     border-width: 1px;
     padding: 1%;
     margin-bottom: 10px;
+}
+
+table {
+  text-align: center;
 }
 
 select {

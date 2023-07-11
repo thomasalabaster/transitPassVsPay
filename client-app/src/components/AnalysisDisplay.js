@@ -27,13 +27,51 @@ function AnalysisDisplay({ analysedData, userData }) {
     of $${stats.totalJourneyCost.toFixed(2)} across a period of 
     ${stats.monthsTravelled} months.`
 
+    months.forEach(month => {
+        if (month.travelled) {
+            console.log(month.monthName, month.totalCost, month.journeyCount)
+        }
+    });
 
     return (
         <div>
             <MessageDisplay title={title} />
             <MessageDisplay message={toBuyOrNotToBuy} />
-            <MessageDisplay title={"Fun stats"} />
             <MessageDisplay message={message} />
+
+            <table>
+                <thead>
+                    <tr>
+                    <th></th> {/* Empty cell for the top-left corner */}
+                    {months.map((month) => {
+                        if (month.travelled) {
+                            return <th key={month.monthName}>{month.monthName}</th>;
+                        }
+                        return null; // Skip rendering for months where travelled is false
+                    })}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Total Cost</td>
+                    {months.map((month) => {
+                        if (month.travelled) {
+                            return <td key={month.monthName}>${Math.abs(month.totalCost).toFixed(2)}</td>;
+                        }
+                        return null; // Skip rendering for months where travelled is false
+                    })}
+                    </tr>
+                    <tr>
+                    <td>Journey Count</td>
+                    {months.map((month) => {
+                        if (month.travelled) {
+                            return <td key={month.monthName}>{month.journeyCount}</td>;
+                        }
+                        return null; // Skip rendering for months where travelled is false
+                    })}
+                    </tr>
+                </tbody>
+            </table>
         </div>
     )
 }
