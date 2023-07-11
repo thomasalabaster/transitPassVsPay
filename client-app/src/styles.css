@@ -3,7 +3,8 @@
 }
 body {
     background-color: #efeff0;
-    font-family: "FF Meta® W01",Arial,Verdana,sans-serif
+    font-family: "FF Meta® W01",Arial,Verdana,sans-serif;
+    background-image: url("https://www.compasscard.ca/images/TL-AC-Logo-Pattern-Tile.png?1678351751")
 
 }
 #root {
