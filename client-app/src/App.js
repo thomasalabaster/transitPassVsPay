@@ -15,11 +15,13 @@ const App = () => {
   const [fileData, setFileData] = useState(null)
   const [analysedData, setAnalysedData] = useState(null)
 
+
   // Conditional rendering of file upload
   const [userSelectionsComplete, setUserSelectionsComplete] = useState(false)
   useEffect(() => {
     if (userData.paymentMethod !== "" && userData.selectedZone !== "") {
       setUserSelectionsComplete(true)
+     
     }
   }, [userData.paymentMethod, userData.selectedZone]);
 
@@ -46,7 +48,7 @@ const App = () => {
     content = (
       <div className='App'>
         <AnalysisDisplay analysedData={analysedData} userData={userData} />
-        <button onClick={handleResetButton}>Reset</button>
+      <button id="resetButton" onClick={handleResetButton}>Reset</button>
       </div>
     );
   } 
@@ -54,11 +56,15 @@ const App = () => {
     content = (
       <div className='App'>
         <div>
-        <h1>Should you buy a monthly pass?</h1>
-          <p>{introText}</p>
+        <h1 className='titleDiv'>Should you buy a monthly pass?</h1>
+          <p className='introText'>{introText}</p>
         </div>
         <GetUserInfo userData={userData} setUserData={setUserData} />
-        {userSelectionsComplete && <FileUploader onFileUpload={handleFileUpload} />}
+      {/* TRYING TO GET THIS TO WORK@@@@@@ */}
+        <div className={`fileUploaderDiv ${userSelectionsComplete ? 'show' : ''}`}>
+          {userSelectionsComplete && <FileUploader onFileUpload={handleFileUpload} />}
+        </div>
+        
         {fileData && <DataAnalyser
             fileData={fileData}
             userData={userData}

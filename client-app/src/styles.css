@@ -4,25 +4,43 @@
 body {
     background-color: #efeff0;
     font-family: "FF Meta® W01",Arial,Verdana,sans-serif;
-    background-image: url("https://www.compasscard.ca/images/TL-AC-Logo-Pattern-Tile.png?1678351751")
-
 }
 #root {
-    background-color: #e6f4f8;
+    background-color: #fff;
     border-color: violet;
+    color: #464547;
     /* border-style: solid; */
     border-width: 2px;
     display:flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50px;
     margin: 2%;
     padding: 5%;
+}
+.App {
+  /* border-color: violet;
+  border-style: solid;
+  border-width: 2px; */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.analysisDiv {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+}
+.monthTable {
+  background-color: pink;
 }
 
 
 h1 {
-    color: #009DDC;
+    color: #575759;
     display: flex;
     justify-content: center;
 }
@@ -32,40 +50,74 @@ h3 {
   justify-content: center;
 }
 
+.titleDiv {
+  background-image: url("https://www.compasscard.ca/images/TL-AC-Logo-Pattern-Tile.png?1678351751");
+  padding: 50px;
+  color: #fff;
+}
 
-.file-upload {
+.fileUploaderDiv {
     display: flex;
     justify-content: center;
-
-  }
-  
-  .custom-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #009DDC;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  #fileUploaderInput {
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-color: #e6f4f8;
+    padding-bottom: 40px;
     opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
+    transition: opacity 0.3s ease
+}
+
+.fileUploaderDiv.show {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.fileUploadButton {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #009DDC;
+  color: #fff;
+}
+
+.fileUploadButton:hover {
+  background-color: #007599;
+}
+
+#fileUploaderInput {
+  display: none;
+}
+
+.introText {
+  padding-left: 20px;
+  padding-right: 20px
+}
+  
 
 #getAllUserInfo {
     display: flex;
+    flex-wrap: wrap;
+    background-color: #e6f4f8;
     justify-content: center;
-    border-color: red;
-    /* border-style: solid; */
-    border-width: 1px;
     padding: 1%;
-    margin-bottom: 10px;
+    padding-bottom: 20px;
+    padding-top: 25px;
+}
+
+#resetButton {
+  display: flex;
+  color: #fff;
+  align-self: center;
+  background-color: #009DDC;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  /* letter-spacing: 1px; */
+  transition: all .25s;
+  margin: 10px;
+}
+
+#resetButton:hover{
+  letter-spacing: 15px;
 }
 
 table {

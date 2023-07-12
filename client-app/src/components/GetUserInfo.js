@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 function GetUserInfo({ userData, setUserData}) {
-
-    const [userSelectionsComplete, setUserSelectionsComplete] = useState(false)
 
     const handleZoneChange = (event) => {
         setUserData({ ...userData, selectedZone: event.target.value });
@@ -14,14 +10,6 @@ function GetUserInfo({ userData, setUserData}) {
 
     const handleConcessionChange = (event) => {
         setUserData({ ...userData, isConcession: event.target.checked ? "concession" : "adult" })
-    }
-
-    const checkUserDataComplete = () => {
-        if (userData.selectedZone && userData.paymentMethod) {
-            setUserSelectionsComplete(true);
-        } else {
-            setUserSelectionsComplete(false)
-        }
     }
 
     return (

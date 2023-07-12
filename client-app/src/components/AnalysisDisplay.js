@@ -34,12 +34,12 @@ function AnalysisDisplay({ analysedData, userData }) {
     });
 
     return (
-        <div>
+        <div className='analysisDiv'>
             <MessageDisplay title={title} />
             <MessageDisplay message={toBuyOrNotToBuy} />
             <MessageDisplay message={message} />
 
-            <table>
+            <table className='monthTable'>
                 <thead>
                     <tr>
                     <th></th> {/* Empty cell for the top-left corner */}

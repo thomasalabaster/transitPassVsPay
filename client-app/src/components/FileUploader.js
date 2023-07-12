@@ -21,15 +21,15 @@ function FileUploader({ onFileUpload }) {
             }
             onFileUpload(results)
         }
-    })
-}
+    })}
 
     return (
-        <div className='fileUploader'>
-            <div className="file-upload">
-            <input type="file" id="fileUploaderInput" onChange={handleFileChange} style={{ display: 'none' }} />
-            <label htmlFor="fileUploaderInput" className="custom-button">Upload File</label>
-        </div>
+        // Trying to get the animation to work
+        <div className='fileUploaderDiv'>
+            <div className="fileButtonDiv">
+                <input type="file" id="fileUploaderInput" onChange={handleFileChange} />
+                <label htmlFor="fileUploaderInput" className="fileUploadButton">Upload File</label>
+            </div>
             <MessageDisplay message={message} />
         </div>
     )
