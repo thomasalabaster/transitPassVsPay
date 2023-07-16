@@ -61,14 +61,13 @@ h3 {
     justify-content: center;
     background-color: #e6f4f8;
     padding-bottom: 40px;
-    opacity: 0;
     transition: opacity 0.3s ease
 }
 
-.fileUploaderDiv.show {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
+button {
+  background-color: #009DDC;
+  color: #fff;
+
 }
 
 .fileUploadButton {
@@ -79,10 +78,6 @@ h3 {
   color: #fff;
 }
 
-.fileUploadButton:hover {
-  background-color: #007599;
-}
-
 #fileUploaderInput {
   display: none;
 }
@@ -91,7 +86,6 @@ h3 {
   padding-left: 20px;
   padding-right: 20px
 }
-  
 
 #getAllUserInfo {
     display: flex;
@@ -101,6 +95,22 @@ h3 {
     padding: 1%;
     padding-bottom: 20px;
     padding-top: 25px;
+}
+
+.faqTitle {
+  background-image: url("https://www.compasscard.ca/images/TL-AC-Logo-Pattern-Tile.png?1678351751");
+  padding: 50px;
+  color: #fff;
+  margin-bottom: 0px;
+}
+.faqQuestion {
+  background-color: #e6f4f8;
+  margin-top: 0;
+  padding:7.5px;
+}
+.faqAnswer {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #resetButton {
@@ -117,7 +127,7 @@ h3 {
 }
 
 #resetButton:hover{
-  letter-spacing: 15px;
+  letter-spacing: 3px;
 }
 
 table {

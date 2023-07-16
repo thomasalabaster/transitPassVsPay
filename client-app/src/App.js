@@ -3,6 +3,7 @@ import FileUploader from './components/FileUploader'
 import GetUserInfo from './components/GetUserInfo'
 import DataAnalyser from './components/DataAnalyser'
 import AnalysisDisplay from './components/AnalysisDisplay'
+import FaQ from './components/FaQ'
 import './styles.css'
 
 const App = () => {
@@ -14,6 +15,12 @@ const App = () => {
   const [userData, setUserData] = useState(user)
   const [fileData, setFileData] = useState(null)
   const [analysedData, setAnalysedData] = useState(null)
+  const [displayFaq, setDisplayFaq] = useState(null)
+
+  // Check whether to display the F&Q section
+  const faqCheck = () => {
+    setDisplayFaq(true)
+  }
 
 
   // Conditional rendering of file upload
@@ -52,6 +59,12 @@ const App = () => {
       </div>
     );
   } 
+
+  else if (displayFaq) {
+    content = (
+      <FaQ setDisplayFaq={setDisplayFaq}/>
+    )
+  }
   else { // Display Form
     content = (
       <div className='App'>
@@ -60,8 +73,7 @@ const App = () => {
           <p className='introText'>{introText}</p>
         </div>
         <GetUserInfo userData={userData} setUserData={setUserData} />
-      {/* TRYING TO GET THIS TO WORK@@@@@@ */}
-        <div className={`fileUploaderDiv ${userSelectionsComplete ? 'show' : ''}`}>
+        <div className={"fileUploaderDiv"}>
           {userSelectionsComplete && <FileUploader onFileUpload={handleFileUpload} />}
         </div>
         
@@ -71,6 +83,7 @@ const App = () => {
             setAnalysedData={setAnalysedData}
             analysedData={analysedData}
         />}
+        <button onClick={faqCheck}>F&Q</button>
       </div>
     );
   }
